@@ -65,7 +65,7 @@ const app = http.createServer((req, res) => {
       })
       .catch((error) => {
         res.statusCode = 500; // Set the status code to 500 for errors
-        res.end(error.message); // Send the error message
+        res.end(error.toString()); // Send the error message
       });
   }
 });
