@@ -2,7 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-function countStudents(filePath = 'database.csv') {
+function countStudents(filePath) {
   return new Promise((resolve, reject) => {
     // Check if file has the correct extension
     if (path.extname(filePath).toLowerCase() !== '.csv') {
@@ -59,7 +59,8 @@ const app = http.createServer((req, res) => {
     res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
-    countStudents(process.argv[2])
+    const databaseFile = process.argv[2] || 'database.csv';
+    countStudents(databaseFile)
       .then((response) => {
         res.writeHead(200, { 'Content-type': 'text/plain' });
         res.end(response.trim('\n'));
