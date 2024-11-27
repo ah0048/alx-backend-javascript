@@ -54,17 +54,18 @@ function countStudents(filePath = 'database.csv') {
 }
 
 const app = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-type': 'text/plain' });
   if (req.url === '/') {
+    res.writeHead(200, { 'Content-type': 'text/plain' });
     res.end('Hello Holberton School!');
   }
   if (req.url === '/students') {
     countStudents(process.argv[2])
       .then((response) => {
+        res.writeHead(200, { 'Content-type': 'text/plain' });
         res.end(response.trim('\n'));
       })
       .catch((error) => {
-        res.statusCode = 500; // Set the status code to 500 for errors
+        res.writeHead(500, { 'Content-type': 'text/plain' });
         res.end(error.toString()); // Send the error message
       });
   }
