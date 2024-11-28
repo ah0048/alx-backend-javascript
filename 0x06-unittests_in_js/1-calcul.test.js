@@ -20,15 +20,15 @@ describe('calculateNumber', () => {
     assert.equal(calculateNumber('SUM', 1, -1), 0);
   });
   it('should return 2', () => {
-    assert.equal(calculateNumber('SUBTRACT', 1, 3), -2);
-    assert.equal(calculateNumber('SUBTRACT', 1.4, 3.5), -3);
+    assert.equal(calculateNumber('SUBTRACT', 3, 1), 2);
+    assert.equal(calculateNumber('SUBTRACT', 3.5, 1.4), 3);
   });
-  it('should return -3', () => {
-    assert.equal(calculateNumber('SUBTRACT', 1.2, 3.7), -3);
-    assert.equal(calculateNumber('SUBTRACT', 1.5, 3.7), -3);
+  it('should return 1', () => {
+    assert.equal(calculateNumber('SUBTRACT', 3.7, 1.2), 3);
+    assert.equal(calculateNumber('SUBTRACT', 3.7, 1.5), 2);
   });
   it('test for -ve numbers', () => {
-    assert.equal(calculateNumber('SUBTRACT', -1.5, 3.7), -6);
+    assert.equal(calculateNumber('SUBTRACT', -1.5, 3.7), -5);
     assert.equal(calculateNumber('SUBTRACT', 1.5, -3.7), 6);
   });
   it('test for zeros ,-ve and +ve numbers', () => {
@@ -36,16 +36,16 @@ describe('calculateNumber', () => {
     assert.equal(calculateNumber('SUBTRACT', -1, 1), -2);
     assert.equal(calculateNumber('SUBTRACT', 1, -1), 2);
   });
-  it('should return 4', () => {
-    assert.equal(calculateNumber('DIVIDE', 8, 2), 4);
-    assert.equal(calculateNumber('DIVIDE', 1.4, 3.5), 0.25);
+  it('should return 2', () => {
+    assert.equal(calculateNumber('DIVIDE', 4, 2), 2);
+    assert.equal(calculateNumber('DIVIDE', 4.5, 2.2), 2.5);
   });
-  it('should return 0.33', () => {
-    assert.equal(calculateNumber('DIVIDE', 1.2, 3.7), 0.33);
-    assert.equal(calculateNumber('DIVIDE', 1.5, 3.7), 0.4);
-  });
-  it('test for -ve numbers', () => {
-    assert.equal(calculateNumber('DIVIDE', -1.5, 3.7), -0.4);
-    assert.equal(calculateNumber('DIVIDE', 1.5, -3.7), -0.4);
-  });
+    it('divide by zero', () => {
+    assert.equal(calculateNumber('DIVIDE', 4, 0), 'Error');
+    });
+    it('test for invalid type', () => {
+    assert.throws(() => calculateNumber('MULTIPLY', 4, 2), {
+      message: 'Invalid type: MULTIPLY',
+    });
+    });
 });
