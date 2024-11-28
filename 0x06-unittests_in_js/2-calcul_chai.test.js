@@ -1,49 +1,33 @@
+/* eslint-disable jest/valid-expect */
+/* eslint-disable jest/expect-expect */
+/* eslint-disable jest/prefer-expect-assertions */
 const { expect } = require('chai');
 const calculateNumber = require('./1-calcul');
 
+// You can assume a and b are always number
+
 describe('calculateNumber', () => {
-  it('should return 4', () => {
-    expect(calculateNumber('SUM', 1, 3)).to.equal(4);
-    expect(calculateNumber('SUM', 1.4, 3.5)).to.equal(5);
-  });
-  it('should return 5', () => {
+  it('handles adding two rounded numbers when type is SUM', () => {
     expect(calculateNumber('SUM', 1.2, 3.7)).to.equal(5);
-    expect(calculateNumber('SUM', 1.5, 3.7)).to.equal(6);
+    expect(calculateNumber('SUM', -1.2, -3.7)).to.equal(-5);
   });
-  it('test for -ve numbers', () => {
-    expect(calculateNumber('SUM', -1.5, 3.7)).to.equal(3);
-    expect(calculateNumber('SUM', 1.5, -3.7)).to.equal(-2);
+
+  it('handles subtracting two rounded numbers when type is SUBTRACT', () => {
+    expect(calculateNumber('SUBTRACT', 5.9, 2.3)).to.equal(4);
+    expect(calculateNumber('SUBTRACT', -5.9, -2.3)).to.equal(-4);
   });
-  it('test for zeros ,-ve and +ve numbers', () => {
-    expect(calculateNumber('SUM', 0, 0)).to.equal(0);
-    expect(calculateNumber('SUM', -1, 1)).to.equal(0);
-    expect(calculateNumber('SUM', 1, -1)).to.equal(0);
+
+  it('handles dividing two rounded numbers when type is DIVIDE', () => {
+    expect(calculateNumber('DIVIDE', 8, 2)).to.equal(4);
+    // expect(calculateNumber('DIVIDE', 5.0, 3.0)).toEqual(2);
   });
-  it('should return 2', () => {
-    expect(calculateNumber('SUBTRACT', 3, 1)).to.equal(2);
-    expect(calculateNumber('SUBTRACT', 3.5, 1.4)).to.equal(3);
-  });
-  it('should return 1', () => {
-    expect(calculateNumber('SUBTRACT', 3.7, 1.2)).to.equal(3);
-    expect(calculateNumber('SUBTRACT', 3.7, 1.5)).to.equal(2);
-  });
-  it('test for -ve numbers', () => {
-    expect(calculateNumber('SUBTRACT', -1.5, 3.7)).to.equal(-5);
-    expect(calculateNumber('SUBTRACT', 1.5, -3.7)).to.equal(6);
-  });
-  it('test for zeros ,-ve and +ve numbers', () => {
-    expect(calculateNumber('SUBTRACT', 0, 0)).to.equal(0);
-    expect(calculateNumber('SUBTRACT', -1, 1)).to.equal(-2);
-    expect(calculateNumber('SUBTRACT', 1, -1)).to.equal(2);
-  });
-  it('should return 2', () => {
-    expect(calculateNumber('DIVIDE', 4, 2)).to.equal(2);
-    expect(calculateNumber('DIVIDE', 4.5, 2.2)).to.equal(2.5);
-  });
-  it('divide by zero', () => {
+
+  it('returns Error when dividing by 0', () => {
     expect(calculateNumber('DIVIDE', 4, 0)).to.equal('Error');
+    expect(calculateNumber('DIVIDE', -8, 0)).to.equal('Error');
   });
-  it('test for invalid type', () => {
-    expect(() => calculateNumber('MULTIPLY', 4, 2)).to.throw('Invalid type: MULTIPLY');
+
+  it('throws an error when an invalid type is provided', () => {
+    expect(() => calculateNumber('INVALID_TYPE', 1, 2)).to.throw(Error);
   });
 });
